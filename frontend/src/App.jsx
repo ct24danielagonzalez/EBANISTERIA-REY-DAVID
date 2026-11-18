@@ -1,6 +1,7 @@
 import { guardarSolicitud } from './services/contactRequests.js';
 import ProjectGallery from './components/ProjectGallery.jsx';
 import { useState } from 'react';
+import ChatAssistant from './components/ChatAssistant.jsx';
 import { Menu, X, ArrowUpRight, Hammer, Sofa, Store, Volume2, Phone, Mail, MapPin, Instagram, Send } from 'lucide-react';
 
 const services = [
@@ -150,6 +151,7 @@ async function handleSubmit(event) {
       </section>
     </main>
     <footer className="footer"><a className="footer-brand" href="#inicio">EBANISTERÍA <strong>REY DAVID</strong></a><p>Soluciones a medida, hechas para durar.</p><span>© {new Date().getFullYear()} Ebanistería Rey David</span></footer>
+    <ChatAssistant />
   </>;
 }
 
