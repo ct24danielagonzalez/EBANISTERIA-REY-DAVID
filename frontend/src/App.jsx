@@ -1,3 +1,4 @@
+import { guardarSolicitud } from './services/contactRequests.js';
 import ProjectGallery from './components/ProjectGallery.jsx';
 import { useState } from 'react';
 import { Menu, X, ArrowUpRight, Hammer, Sofa, Store, Volume2, Phone, Mail, MapPin, Instagram, Send } from 'lucide-react';
@@ -26,16 +27,49 @@ function Header() {
 
 function App() {
   const [sent, setSent] = useState(false);
-  function handleSubmit(event) {
-    event.preventDefault();
-    const form = event.currentTarget;
-    const data = new FormData(form);
-    const message = 'Hola, soy ' + data.get('name') + '.\nCorreo: ' + data.get('email') +
-      '\nTeléfono: ' + data.get('phone') + '\nServicio: ' + data.get('service') +
-      '\nDetalles: ' + data.get('message');
-    window.open('https://wa.me/50765174603?text=' + encodeURIComponent(message), '_blank', 'noopener,noreferrer');
+
+async function handleSubmit(event) {
+  event.preventDefault();
+
+  const form = event.currentTarget;
+  const data = new FormData(form);
+
+  const solicitud = {
+    name: String(data.get('name') || ''),
+    email: String(data.get('email') || ''),
+    service: String(data.get('service') || ''),
+    message: String(data.get('message') || '')
+  };
+
+  const phone = String(data.get('phone') || '');
+
+  try {
+    await guardarSolicitud(solicitud);
+
+    const mensaje =
+      `Hola, soy ${solicitud.name}.\n` +
+      `Correo: ${solicitud.email}\n` +
+      `Teléfono: ${phone}\n` +
+      `Servicio: ${solicitud.service}\n` +
+      `Detalles: ${solicitud.message}`;
+
     setSent(true);
+    form.reset();
+
+    window.open(
+      'https://wa.me/50765174603?text=' +
+        encodeURIComponent(mensaje),
+      '_blank',
+      'noopener,noreferrer'
+    );
+  } catch (error) {
+    console.error(error);
+    alert(
+      'No se pudo guardar la solicitud. Inténtalo nuevamente.'
+    );
   }
+}
+
 
   return <>
     <Header />
@@ -79,7 +113,12 @@ function App() {
           <label>Servicio de interés<select name="service" required defaultValue=""><option value="" disabled>Selecciona un servicio</option><option>Ebanistería</option><option>Muebles a medida</option><option>Stands para ferias y eventos</option><option>Equipos de sonido</option><option>Otro</option></select></label>
           <label className="field-full">Cuéntanos sobre tu proyecto<textarea name="message" rows="4" required placeholder="Describe brevemente lo que necesitas..." /></label>
           <button className="button button-dark" type="submit">Preparar mensaje <Send size={16} /></button>
-          {sent && <p className="form-note">Se abrirá tu aplicación de correo para enviar la solicitud.</p>}
+          {sent && (
+            <p className="form-note" role="status">
+              Solicitud registrada correctamente.
+              Puedes continuar la conversación por WhatsApp.
+              </p>
+          )}
         </form>
       </section>
     </main>

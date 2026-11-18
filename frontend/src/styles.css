@@ -958,3 +958,63 @@ h2 em {
   }
 }
 
+/* SOLICITUDES DE CONTACTO - ADMINISTRACIÓN */
+
+.contact-admin {
+  margin-top: 56px;
+}
+
+.contact-admin h2 {
+  margin-bottom: 24px;
+  color: #03254E;
+}
+
+.contact-admin-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.contact-admin-card {
+  min-width: 0;
+  padding: 24px;
+  background: #ffffff;
+  border: 1px solid #deded8;
+}
+
+.contact-admin-card h3 {
+  margin-bottom: 16px;
+  color: #03254E;
+  font-size: 18px;
+}
+
+.contact-admin-card p {
+  margin-bottom: 12px;
+  overflow-wrap: anywhere;
+}
+
+.contact-admin-card a {
+  color: #03254E;
+  text-decoration: underline;
+}
+
+.contact-admin-message {
+  white-space: pre-wrap;
+}
+
+.contact-admin-date {
+  margin-top: 20px;
+  color: #5C5346;
+  font-size: 11px;
+}
+
+@media (max-width: 650px) {
+  .contact-admin-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-admin-card {
+    padding: 18px;
+  }
+}
+
