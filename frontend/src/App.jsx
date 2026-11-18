@@ -27,9 +27,16 @@ function Header() {
 
 function App() {
   const [sent, setSent] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [whatsappUrl, setWhatsappUrl] = useState('');
 
 async function handleSubmit(event) {
   event.preventDefault();
+
+  if (isSubmitting) return;
+  setIsSubmitting(true);
+  setSent(false);
+  setWhatsappUrl('');
 
   const form = event.currentTarget;
   const data = new FormData(form);
@@ -52,22 +59,24 @@ async function handleSubmit(event) {
       `Teléfono: ${phone}\n` +
       `Servicio: ${solicitud.service}\n` +
       `Detalles: ${solicitud.message}`;
-
-    setSent(true);
-    form.reset();
-
-    window.open(
+      setWhatsappUrl(
       'https://wa.me/50765174603?text=' +
-        encodeURIComponent(mensaje),
-      '_blank',
-      'noopener,noreferrer'
-    );
+      encodeURIComponent(mensaje)
+      );
+
+      setSent(true);
+      form.reset();
+
   } catch (error) {
     console.error(error);
     alert(
       'No se pudo guardar la solicitud. Inténtalo nuevamente.'
     );
+
   }
+  finally {
+  setIsSubmitting(false);
+   }
 }
 
 
@@ -112,13 +121,31 @@ async function handleSubmit(event) {
           <label>Teléfono<input name="phone" placeholder="Tu número de contacto" /></label>
           <label>Servicio de interés<select name="service" required defaultValue=""><option value="" disabled>Selecciona un servicio</option><option>Ebanistería</option><option>Muebles a medida</option><option>Stands para ferias y eventos</option><option>Equipos de sonido</option><option>Otro</option></select></label>
           <label className="field-full">Cuéntanos sobre tu proyecto<textarea name="message" rows="4" required placeholder="Describe brevemente lo que necesitas..." /></label>
-          <button className="button button-dark" type="submit">Preparar mensaje <Send size={16} /></button>
-          {sent && (
+          <button
+          className="button button-dark"
+          type="submit"
+          disabled={isSubmitting}
+          >
+            {isSubmitting ? 'Enviando...' : 'Enviar solicitud'}
+            {!isSubmitting && <Send size={16} />}
+            </button>
+            {sent && whatsappUrl && (
+            <div className="field-full">
             <p className="form-note" role="status">
-              Solicitud registrada correctamente.
-              Puedes continuar la conversación por WhatsApp.
-              </p>
-          )}
+            Solicitud registrada correctamente.
+           Puedes continuar la conversación por WhatsApp.
+           </p>
+
+            <a
+            href={whatsappUrl}
+           target="_blank"
+           rel="noopener noreferrer"
+           className="button button-dark"
+           >
+           Continuar por WhatsApp
+            </a>
+            </div>
+           )}  
         </form>
       </section>
     </main>
