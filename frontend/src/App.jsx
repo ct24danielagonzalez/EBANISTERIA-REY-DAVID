@@ -35,7 +35,10 @@ function App() {
       '\nTeléfono: ' + data.get('phone') + '\nServicio: ' + data.get('service') +
       '\nDetalles: ' + data.get('message')
     );
-    window.location.href = 'mailto:contacto@ebanisteriareydavid.com?subject=' + subject + '&body=' + body;
+    const message = 'Hola, soy ' + data.get('name') + '.\nCorreo: ' + data.get('email') +
+      '\nTeléfono: ' + data.get('phone') + '\nServicio: ' + data.get('service') +
+      '\nDetalles: ' + data.get('message');
+    window.open('https://wa.me/50765174603?text=' + encodeURIComponent(message), '_blank', 'noopener,noreferrer');
     setSent(true);
   }
 
