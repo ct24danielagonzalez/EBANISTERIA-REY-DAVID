@@ -761,3 +761,142 @@ h2 em {
     justify-self: stretch;
   }
 }
+
+/* LISTA DE PROYECTOS ADMINISTRATIVOS */
+
+.project-list {
+  margin-top: 48px;
+}
+
+.project-list h2 {
+  margin-bottom: 24px;
+  color: #03254E;
+}
+
+.project-list-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.project-item {
+  min-width: 0;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #deded8;
+}
+
+.project-item img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  margin-bottom: 16px;
+}
+
+.project-item h3 {
+  color: #03254E;
+  font-size: 17px;
+  overflow-wrap: anywhere;
+}
+
+.project-item p {
+  color: #5C5346;
+  overflow-wrap: anywhere;
+}
+
+.project-item span {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #5C5346;
+}
+
+@media (max-width: 900px) {
+  .project-list-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 650px) {
+  .project-list-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* BOTÓN PARA ELIMINAR PROYECTOS */
+
+.project-delete-button {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  padding: 11px 15px;
+  border: 1px solid #9c3333;
+  background: #ffffff;
+  color: #9c3333;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.project-delete-button:hover {
+  background: #9c3333;
+  color: #ffffff;
+}
+
+.project-delete-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
+/* EDICIÓN DE PROYECTOS */
+
+.project-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.project-edit-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.project-edit-form input,
+.project-edit-form textarea,
+.project-edit-form select {
+  width: 100%;
+  min-width: 0;
+  padding: 11px;
+  border: 1px solid #A69F98;
+  background: #F0F2EF;
+  color: #03254E;
+}
+
+.project-edit-form textarea {
+  resize: vertical;
+}
+
+.project-edit-form button,
+.project-edit-button {
+  width: 100%;
+  padding: 11px 15px;
+  border: none;
+  background: #03254E;
+  color: white;
+  cursor: pointer;
+}
+
+.project-edit-form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.project-edit-button {
+  display: block;
+  margin-top: 20px;
+}
+
