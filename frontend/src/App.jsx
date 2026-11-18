@@ -29,12 +29,6 @@ function App() {
     event.preventDefault();
     const form = event.currentTarget;
     const data = new FormData(form);
-    const subject = encodeURIComponent('Solicitud de información - ' + data.get('service'));
-    const body = encodeURIComponent(
-      'Nombre: ' + data.get('name') + '\nCorreo: ' + data.get('email') +
-      '\nTeléfono: ' + data.get('phone') + '\nServicio: ' + data.get('service') +
-      '\nDetalles: ' + data.get('message')
-    );
     const message = 'Hola, soy ' + data.get('name') + '.\nCorreo: ' + data.get('email') +
       '\nTeléfono: ' + data.get('phone') + '\nServicio: ' + data.get('service') +
       '\nDetalles: ' + data.get('message');
