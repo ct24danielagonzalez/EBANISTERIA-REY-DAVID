@@ -900,3 +900,61 @@ h2 em {
   margin-top: 20px;
 }
 
+
+/* PORTAFOLIO PÚBLICO */
+
+.public-project-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.public-project-card {
+  min-width: 0;
+  background: #ffffff;
+  border: 1px solid #deded8;
+  overflow: hidden;
+}
+
+.public-project-card img {
+  display: block;
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+}
+
+.public-project-content {
+  padding: 24px;
+}
+
+.public-project-content span {
+  font-size: 11px;
+  font-weight: 700;
+  color: #5C5346;
+}
+
+.public-project-content h3 {
+  margin: 12px 0;
+  font-size: 19px;
+  color: #03254E;
+  overflow-wrap: anywhere;
+}
+
+.public-project-content p {
+  font-size: 12px;
+  color: #5C5346;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 900px) {
+  .public-project-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 650px) {
+  .public-project-grid {
+    grid-template-columns: 1fr;
+  }
+}
+

@@ -1,3 +1,4 @@
+import ProjectGallery from './components/ProjectGallery.jsx';
 import { useState } from 'react';
 import { Menu, X, ArrowUpRight, Hammer, Sofa, Store, Volume2, Phone, Mail, MapPin, Instagram, Send } from 'lucide-react';
 
@@ -62,10 +63,7 @@ function App() {
         <div className="service-grid">{services.map(({ icon: Icon, title, text }, index) => <article className="service-card" key={title}><span className="service-index">0{index + 1}</span><Icon size={30} strokeWidth={1.5} /><h3>{title}</h3><p>{text}</p><a href="#contacto">Consultar servicio <ArrowUpRight size={15} /></a></article>)}</div>
       </section>
 
-      <section className="projects section" id="proyectos">
-        <div className="section-heading"><div><p className="eyebrow eyebrow-dark">PORTAFOLIO</p><h2>Trabajos con identidad <em>propia.</em></h2></div><p>Muy pronto encontrarás aquí fotografías de nuestros proyectos realizados.</p></div>
-        <div className="project-placeholder"><div className="placeholder-symbol">RD</div><p>Estamos preparando nuestra galería de proyectos.</p><span>Próximamente · Ebanistería Rey David</span></div>
-      </section>
+      <ProjectGallery />
 
       <section className="process section">
         <p className="eyebrow">NUESTRO PROCESO</p><h2>De la idea a la <em>realidad.</em></h2>
