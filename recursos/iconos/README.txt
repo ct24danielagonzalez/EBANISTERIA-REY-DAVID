@@ -1,0 +1,1 @@
+Coloca aquí iconos o recursos gráficos propios del proyecto.
