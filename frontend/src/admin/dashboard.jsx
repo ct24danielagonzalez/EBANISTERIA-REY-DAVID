@@ -1,4 +1,4 @@
-
+import ContactList from './ContactList.jsx';
 import { signOut } from 'firebase/auth';
 import { auth } from '../services/firebase.js';
 import ProjectForm from './ProjectForm.jsx';
@@ -18,6 +18,7 @@ export default function Dashboard({ user }) {
       <h2>Administración de proyectos</h2>
       <ProjectForm />
       <ProjectList />
+      <ContactList />
       <p>
         Aquí agregaremos las herramientas para crear,
         editar y eliminar proyectos del catálogo.
