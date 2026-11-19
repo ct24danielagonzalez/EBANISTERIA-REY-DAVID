@@ -104,7 +104,7 @@ async function handleSubmit(event) {
 
       <section className="services section" id="servicios">
         <div className="section-heading"><div><p className="eyebrow eyebrow-dark">LO QUE HACEMOS</p><h2>Soluciones pensadas <em>para ti.</em></h2></div><p>Cuéntanos qué tienes en mente. Te ayudamos a convertir tu idea en un proyecto.</p></div>
-        <div className="service-grid">{services.map(({ icon: Icon, title, text }, index) => <article className="service-card" key={title}><span className="service-index">0{index + 1}</span><Icon size={30} strokeWidth={1.5} /><h3>{title}</h3><p>{text}</p><a href="#contacto">Consultar servicio <ArrowUpRight size={15} /></a></article>)}</div>
+        <div className="service-grid">{services.map(({ icon: Icon, title, text }, index) => <article className={`service-card service-card-${index + 1}`} key={title}><span className="service-index">0{index + 1}</span><Icon size={30} strokeWidth={1.5} aria-hidden="true" /><h3>{title}</h3><p>{text}</p><a href="#contacto">Consultar servicio <ArrowUpRight size={15} /></a></article>)}</div>
       </section>
 
       <ProjectGallery />
