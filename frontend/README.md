@@ -58,3 +58,18 @@ La lista pública requiere lectura de `productos`. Solo el administrador autoriz
 ## Sincronización con una copia local modificada
 
 Antes de hacer `git pull`, ejecutar `git status` desde la raíz y guardar los cambios locales con un commit o `git stash`. No sobrescribir archivos sin revisar el resultado, especialmente `src/App.jsx`, `src/styles.css` y los componentes que antes existían solo localmente.
+
+
+## Publicación con GitHub Pages
+
+El repositorio ya incluye `.github/workflows/deploy-pages.yml` y `frontend/vite.config.js`. El workflow compila la aplicación con la ruta base `/EBANISTERIA-REY-DAVID/`.
+
+1. GitHub → repositorio → Settings → Pages → Build and deployment → Source: **GitHub Actions**.
+2. Settings → Secrets and variables → Actions → **Variables** → New repository variable. Crear con sus valores reales: `VITE_FIREBASE_API_KEY`, `VITE_FIREBASE_AUTH_DOMAIN`, `VITE_FIREBASE_PROJECT_ID`, `VITE_FIREBASE_STORAGE_BUCKET`, `VITE_FIREBASE_MESSAGING_SENDER_ID`, `VITE_FIREBASE_APP_ID`, `VITE_ADMIN_UID`. Opcional: `VITE_CHAT_API_URL`. No pegar el archivo `.env` en GitHub ni subir llaves privadas.
+3. GitHub → Actions → **Publicar web en GitHub Pages** → **Run workflow**, o desencadenar un nuevo push en `main`.
+4. Revisar el resultado en Actions y probar el sitio en `https://ct24danielagonzalez.github.io/EBANISTERIA-REY-DAVID/`.
+5. Si el panel de administración usa Firebase Auth, añadir `ct24danielagonzalez.github.io` en Firebase Console → Authentication → Settings → Authorized domains.
+6. Configurar CORS del Cloudflare Worker para permitir **https://ct24danielagonzalez.github.io** además del localhost de desarrollo. La web de GitHub Pages usa HTTPS y el chatbot necesita esa autorización.
+7. **Antes de compartir públicamente el enlace**, verificar las reglas Firestore: escritura de `productos` y lectura de `solicitudes` solo para UID administrador autorizado; proteger `solicitudes` contra envíos abusivos.
+
+Las variables de cliente `VITE_*` quedan incluidas en el bundle público de JavaScript y no deben contener contraseñas, tokens privados ni claves de Gemini. Solo la configuración web pública de Firebase y la identificación de UID apropiada.
