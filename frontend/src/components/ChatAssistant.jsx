@@ -27,7 +27,7 @@ export default function ChatAssistant() {
       });
       if (!response.ok) throw new Error(`Error HTTP ${response.status}`);
       const data = await response.json();
-      const reply = typeof data === 'string' ? data : (data.reply || data.response || data.text || data.message);
+      const reply = typeof data === 'string' ? data : (data.reply || data.respuesta || data.response || data.text || data.message);
       if (!reply || typeof reply !== 'string') throw new Error('Formato de respuesta no reconocido');
       setMessages((list) => [...list, { role: 'assistant', content: reply }]);
     } catch (error) {
