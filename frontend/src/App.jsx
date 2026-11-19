@@ -91,8 +91,8 @@ async function handleSubmit(event) {
           <p className="hero-description">Creamos soluciones en madera, muebles personalizados y espacios para eventos, con atención a los detalles y a lo que realmente necesitas.</p>
           <div className="hero-actions"><a className="button button-light" href="#servicios">Conoce nuestros servicios <ArrowUpRight size={17} /></a><a className="underlined-link" href="#contacto">Hablemos de tu proyecto</a></div>
         </div>
-        <div className="hero-art" role="img" aria-label="Composición gráfica inspirada en la carpintería">
-          <div className="wood-panel panel-one"></div><div className="wood-panel panel-two"></div><div className="wood-caption">DISEÑAMOS<br /><strong>CONTIGO</strong></div>
+        <div className="hero-art hero-photo" role="img" aria-label="Fotografía provisional de un espacio interior con mobiliario de madera">
+          <div className="wood-caption">DISEÑAMOS<br /><strong>CONTIGO</strong></div>
           <span className="hero-index">PANAMÁ · HECHO A MEDIDA</span>
         </div>
       </section>
