@@ -1150,3 +1150,33 @@ h2 em {
     height: 54px;
   }
 }
+
+
+/* HERO: imagen provisional; sustituir por video cuando esté disponible */
+.hero-photo {
+  background-color: #766657;
+  background-image:
+    linear-gradient(180deg, rgba(3, 37, 78, .08) 25%, rgba(3, 37, 78, .56) 100%),
+    url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=85');
+  background-size: cover;
+  background-position: center;
+  border-radius: 14px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, .18);
+}
+.hero-photo .wood-caption {
+  border-radius: 4px;
+}
+@media (max-width: 650px) {
+  .hero-photo {
+    height: clamp(240px, 70vw, 350px);
+    background-position: center;
+  }
+  .hero-photo .wood-caption {
+    left: 16px;
+    bottom: 16px;
+  }
+  .hero-photo .hero-index {
+    right: 16px;
+    top: 16px;
+  }
+}
