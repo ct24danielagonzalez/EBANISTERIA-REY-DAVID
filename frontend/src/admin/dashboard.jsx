@@ -19,12 +19,7 @@ export default function Dashboard({ user }) {
       <ProjectForm />
       <ProjectList />
       <ContactList />
-      <p>
-        Aquí agregaremos las herramientas para crear,
-        editar y eliminar proyectos del catálogo.
-      </p>
-
-      <button onClick={cerrarSesion}>
+<button onClick={cerrarSesion}>
         Cerrar sesión
       </button>
     </main>
