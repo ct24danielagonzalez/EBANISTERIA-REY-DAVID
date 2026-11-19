@@ -5,7 +5,7 @@ import { onAuthStateChanged, signOut } from 'firebase/auth';
 
 import App from './App.jsx';
 import Login from './admin/Login.jsx';
-import Dashboard from './admin/Dashboard.jsx';
+import Dashboard from './admin/dashboard.jsx';
 import { auth } from './services/firebase.js';
 
 import './styles.css';
