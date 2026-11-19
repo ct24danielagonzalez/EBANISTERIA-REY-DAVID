@@ -12,7 +12,11 @@ export default function ProjectList() {
     catch { setError('No se pudieron cargar los proyectos.'); }
     finally { setLoading(false); }
   }
-  useEffect(() => { refresh(); }, []);
+  useEffect(() => {
+    refresh();
+    window.addEventListener('project-updated', refresh);
+    return () => window.removeEventListener('project-updated', refresh);
+  }, []);
   async function remove(id) {
     if (!window.confirm('¿Eliminar este proyecto de forma permanente?')) return;
     setBusy(id);
