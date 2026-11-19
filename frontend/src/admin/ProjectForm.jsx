@@ -33,6 +33,7 @@ export default function ProjectForm() {
       await crearProyecto(proyecto);
 
       setMensaje('Proyecto guardado correctamente.');
+      window.dispatchEvent(new Event('project-updated'));
 
       setProyecto({
         nombre: '',
