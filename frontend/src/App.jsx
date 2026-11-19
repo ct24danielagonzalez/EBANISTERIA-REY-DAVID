@@ -54,11 +54,10 @@ async function handleSubmit(event) {
   const solicitud = {
     name: String(data.get('name') || ''),
     email: String(data.get('email') || ''),
+    phone: String(data.get('phone') || ''),
     service: String(data.get('service') || ''),
     message: String(data.get('message') || '')
   };
-
-  const phone = String(data.get('phone') || '');
 
   try {
     await guardarSolicitud(solicitud);
@@ -66,16 +65,16 @@ async function handleSubmit(event) {
     const mensaje =
       `Hola, soy ${solicitud.name}.\n` +
       `Correo: ${solicitud.email}\n` +
-      `Teléfono: ${phone}\n` +
+      `Teléfono: ${solicitud.phone}\n` +
       `Servicio: ${solicitud.service}\n` +
       `Detalles: ${solicitud.message}`;
-      setWhatsappUrl(
-      'https://wa.me/50765174603?text=' +
-      encodeURIComponent(mensaje)
-      );
-
+      const url = 'https://wa.me/50765174603?text=' + encodeURIComponent(mensaje);
+      setWhatsappUrl(url);
       setSent(true);
       form.reset();
+      // El registro ya se guardó: abrir WhatsApp con la cotización preescrita.
+      // El cliente confirma el envío desde WhatsApp.
+      window.location.assign(url);
 
   } catch (error) {
     console.error(error);
@@ -135,7 +134,7 @@ async function handleSubmit(event) {
         <form className="contact-form" onSubmit={handleSubmit}>
           <label>Nombre<input name="name" autoComplete="name" maxLength={120} required placeholder="Tu nombre" /></label>
           <label>Correo electrónico<input name="email" type="email" autoComplete="email" maxLength={254} required placeholder="correo@ejemplo.com" /></label>
-          <label>Teléfono<input name="phone" type="tel" autoComplete="tel" maxLength={30} placeholder="Tu número de contacto" /></label>
+          <label>Teléfono de contacto<input name="phone" type="tel" autoComplete="tel" inputMode="tel" maxLength={30} required placeholder="Ej. +507 6123-4567" /></label>
           <label>Servicio de interés<select name="service" required defaultValue=""><option value="" disabled>Selecciona un servicio</option><option>Ebanistería</option><option>Muebles a medida</option><option>Stands para ferias y eventos</option><option>Equipos de sonido</option><option>Otro</option></select></label>
           <label className="field-full">Cuéntanos sobre tu proyecto<textarea name="message" rows="4" minLength={10} maxLength={2000} required placeholder="Describe brevemente lo que necesitas..." /></label>
           <button
@@ -149,8 +148,7 @@ async function handleSubmit(event) {
             {sent && whatsappUrl && (
             <div className="field-full">
             <p className="form-note" role="status">
-            Solicitud registrada correctamente.
-           Puedes continuar la conversación por WhatsApp.
+            Solicitud registrada correctamente. Si WhatsApp no se abrió, utiliza el enlace siguiente.
            </p>
 
             <a
