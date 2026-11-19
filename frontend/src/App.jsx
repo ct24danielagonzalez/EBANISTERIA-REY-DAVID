@@ -2,13 +2,22 @@ import { guardarSolicitud } from './services/contactRequests.js';
 import ProjectGallery from './components/ProjectGallery.jsx';
 import { useState } from 'react';
 import ChatAssistant from './components/ChatAssistant.jsx';
-import { Menu, X, ArrowUpRight, Hammer, Sofa, Store, Volume2, Phone, Mail, MapPin, Instagram, Send } from 'lucide-react';
+import { Menu, X, ArrowUpRight, Hammer, Sofa, Store, Volume2, Phone, MapPin, Instagram, Send, ClipboardList, Ruler, Wrench, CheckCircle2, MessageCircle } from 'lucide-react';
 
 const services = [
   { icon: Hammer, title: 'Ebanistería', text: 'Diseño, fabricación e instalación de soluciones personalizadas en madera.' },
   { icon: Sofa, title: 'Muebles a medida', text: 'Muebles funcionales y duraderos, adaptados a tu espacio y necesidades.' },
   { icon: Store, title: 'Stands y exhibidores', text: 'Espacios para ferias y eventos que ayudan a presentar tu marca.' },
   { icon: Volume2, title: 'Equipos de sonido', text: 'Servicios relacionados con equipos de sonido para proyectos y eventos.' }
+];
+
+const instagramUrl = 'https://www.instagram.com/serviciosreydavid_ebanisteria/';
+
+const processSteps = [
+  { icon: ClipboardList, number: '01', title: 'Nos cuentas', text: 'Escuchamos tu idea y conocemos tus necesidades.' },
+  { icon: Ruler, number: '02', title: 'Planificamos', text: 'Definimos los detalles y el alcance del proyecto.' },
+  { icon: Wrench, number: '03', title: 'Fabricamos', text: 'Damos forma a la solución acordada.' },
+  { icon: CheckCircle2, number: '04', title: 'Instalamos', text: 'Coordinamos la entrega y puesta en sitio.' }
 ];
 
 function Header() {
@@ -18,8 +27,8 @@ function Header() {
     <a className="brand" href="#inicio" aria-label="Ebanistería Rey David, inicio">
       <span className="brand-mark">RD</span><span className="brand-name">REY DAVID<small>EBANISTERÍA & MULTISERVICIOS</small></span>
     </a>
-    <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label="Abrir menú">{menuOpen ? <X /> : <Menu />}</button>
-    <nav className={menuOpen ? 'navigation navigation-open' : 'navigation'}>
+    <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'} aria-expanded={menuOpen} aria-controls="main-navigation">{menuOpen ? <X /> : <Menu />}</button>
+    <nav id="main-navigation" aria-label="Navegación principal" className={menuOpen ? 'navigation navigation-open' : 'navigation'}>
       {links.map(([label, href]) => <a key={href} href={href} onClick={() => setMenuOpen(false)}>{label}</a>)}
       <a className="nav-cta" href="#contacto" onClick={() => setMenuOpen(false)}>Cotizar proyecto <ArrowUpRight size={16} /></a>
     </nav>
@@ -109,19 +118,26 @@ async function handleSubmit(event) {
 
       <ProjectGallery />
 
-      <section className="process section">
-        <p className="eyebrow">NUESTRO PROCESO</p><h2>De la idea a la <em>realidad.</em></h2>
-        <div className="steps">{[['01', 'Nos cuentas', 'Escuchamos tu idea y conocemos tus necesidades.'], ['02', 'Planificamos', 'Definimos los detalles y el alcance del proyecto.'], ['03', 'Fabricamos', 'Damos forma a la solución acordada.'], ['04', 'Instalamos', 'Coordinamos la entrega y puesta en sitio.']].map(([number, title, text]) => <article key={number}><b>{number}</b><h3>{title}</h3><p>{text}</p></article>)}</div>
+      <section className="process section" id="proceso" aria-labelledby="process-title">
+        <div className="process-heading">
+          <div><p className="eyebrow">NUESTRO PROCESO</p><h2 id="process-title">De la idea a la <em>realidad.</em></h2></div>
+          <p>Un camino claro desde la primera conversación hasta la entrega de tu proyecto.</p>
+        </div>
+        <ol className="steps">{processSteps.map(({ icon: Icon, number, title, text }) => <li className="process-step" key={number}>
+          <div className="process-step-top"><span className="process-icon"><Icon size={25} strokeWidth={1.6} aria-hidden="true" /></span><span className="process-number">{number}</span></div>
+          <h3>{title}</h3><p>{text}</p>
+        </li>)}</ol>
+        <a className="process-link" href="#contacto">Empecemos tu proyecto <ArrowUpRight size={17} /></a>
       </section>
 
       <section className="contact section" id="contacto">
-        <div className="contact-copy"><p className="eyebrow">HABLEMOS DE TU PROYECTO</p><h2>¿Qué tienes en mente?</h2><p>Escríbenos y cuéntanos qué necesitas. Estaremos encantados de conocer tu proyecto.</p><a href="tel:+50765174603"><Phone size={17} /> +507 6517-4603</a><a href="https://www.instagram.com/" target="_blank" rel="noreferrer"><Instagram size={17} /> Instagram</a><span><MapPin size={17} /> Panamá</span></div>
+        <div className="contact-copy"><p className="eyebrow">HABLEMOS DE TU PROYECTO</p><h2>¿Qué tienes en mente?</h2><p>Escríbenos y cuéntanos qué necesitas. Estaremos encantados de conocer tu proyecto.</p><a href="tel:+50765174603"><Phone size={17} /> +507 6517-4603</a><a href={instagramUrl} target="_blank" rel="noopener noreferrer" aria-label="Visitar Instagram de Ebanistería Rey David"><Instagram size={17} /> @serviciosreydavid_ebanisteria <ArrowUpRight size={14} /></a><a href="https://wa.me/50765174603" target="_blank" rel="noopener noreferrer"><MessageCircle size={17} /> Escríbenos por WhatsApp</a><span><MapPin size={17} /> Panamá</span></div>
         <form className="contact-form" onSubmit={handleSubmit}>
-          <label>Nombre<input name="name" required placeholder="Tu nombre" /></label>
-          <label>Correo electrónico<input name="email" type="email" required placeholder="correo@ejemplo.com" /></label>
-          <label>Teléfono<input name="phone" placeholder="Tu número de contacto" /></label>
+          <label>Nombre<input name="name" autoComplete="name" maxLength={120} required placeholder="Tu nombre" /></label>
+          <label>Correo electrónico<input name="email" type="email" autoComplete="email" maxLength={254} required placeholder="correo@ejemplo.com" /></label>
+          <label>Teléfono<input name="phone" type="tel" autoComplete="tel" maxLength={30} placeholder="Tu número de contacto" /></label>
           <label>Servicio de interés<select name="service" required defaultValue=""><option value="" disabled>Selecciona un servicio</option><option>Ebanistería</option><option>Muebles a medida</option><option>Stands para ferias y eventos</option><option>Equipos de sonido</option><option>Otro</option></select></label>
-          <label className="field-full">Cuéntanos sobre tu proyecto<textarea name="message" rows="4" required placeholder="Describe brevemente lo que necesitas..." /></label>
+          <label className="field-full">Cuéntanos sobre tu proyecto<textarea name="message" rows="4" minLength={10} maxLength={2000} required placeholder="Describe brevemente lo que necesitas..." /></label>
           <button
           className="button button-dark"
           type="submit"
@@ -150,7 +166,7 @@ async function handleSubmit(event) {
         </form>
       </section>
     </main>
-    <footer className="footer"><a className="footer-brand" href="#inicio">EBANISTERÍA <strong>REY DAVID</strong></a><p>Soluciones a medida, hechas para durar.</p><span>© {new Date().getFullYear()} Ebanistería Rey David</span></footer>
+    <footer className="footer"><a className="footer-brand" href="#inicio">EBANISTERÍA <strong>REY DAVID</strong></a><p>Soluciones a medida, hechas para durar.</p><div className="footer-links"><a href={instagramUrl} target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Instagram size={17} /></a><a href="https://wa.me/50765174603" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><MessageCircle size={17} /></a></div><span>© {new Date().getFullYear()} Ebanistería Rey David</span></footer>
     <ChatAssistant />
   </>;
 }
