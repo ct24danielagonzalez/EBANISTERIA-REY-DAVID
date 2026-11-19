@@ -1366,3 +1366,26 @@ h2 em {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
+
+
+/* Cotizaciones en panel administrativo */
+.contact-delete-button {
+  width: 100%;
+  margin-top: 14px;
+  padding: 11px 15px;
+  border: 1px solid #a13d3d !important;
+  border-radius: 7px;
+  background: #fff !important;
+  color: #922e2e !important;
+  font-weight: 700;
+  cursor: pointer;
+}
+.contact-delete-button:hover:not(:disabled) {
+  background: #922e2e !important;
+  color: #fff !important;
+}
+.contact-delete-button:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+.contact-admin-card p { overflow-wrap: anywhere; }
