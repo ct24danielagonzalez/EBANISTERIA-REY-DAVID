@@ -98,12 +98,12 @@ export default function ProjectForm() {
         </label>
 
         <label>
-          Imagen desde tu computador (opcional)
+          Imagen
           <input type="file" accept="image/jpeg,image/png,image/webp,image/avif" onChange={(event) => setArchivo(event.target.files?.[0] || null)} />
         </label>
 
         <label>
-          URL de imagen (opcional; método anterior)
+          URL
           <input
             name="imagen"
             type="url"
