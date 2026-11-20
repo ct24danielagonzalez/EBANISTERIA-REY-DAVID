@@ -52,8 +52,8 @@ export default function ProjectList() {
         <label>Nombre<input required maxLength={120} value={editing.nombre || ''} onChange={(e) => setEditing({ ...editing, nombre: e.target.value })} /></label>
         <label>Descripción<textarea required maxLength={2000} value={editing.descripcion || ''} onChange={(e) => setEditing({ ...editing, descripcion: e.target.value })} /></label>
         <label>Categoría<select value={editing.categoria || 'Ebanistería'} onChange={(e) => setEditing({ ...editing, categoria: e.target.value })}><option>Ebanistería</option><option>Muebles a medida</option><option>Stands y exhibidores</option><option>Equipos de sonido</option></select></label>
-        <label>Nueva imagen desde tu computador<input type="file" accept="image/jpeg,image/png,image/webp,image/avif" onChange={(e) => setEditingFile(e.target.files?.[0] || null)} /></label>
-        <label>Imagen URL (método anterior)<input type="url" disabled={Boolean(editingFile)} value={editing.imagen || ''} onChange={(e) => setEditing({ ...editing, imagen: e.target.value })} /></label>
+        <label>Imagen<input type="file" accept="image/jpeg,image/png,image/webp,image/avif" onChange={(e) => setEditingFile(e.target.files?.[0] || null)} /></label>
+        <label>URL<input type="url" disabled={Boolean(editingFile)} value={editing.imagen || ''} onChange={(e) => setEditing({ ...editing, imagen: e.target.value })} /></label>
         <button type="submit" disabled={Boolean(busy)}>Guardar cambios</button>
         <button type="button" onClick={() => { setEditing(null); setEditingFile(null); }}>Cancelar</button>
       </form> : <>
