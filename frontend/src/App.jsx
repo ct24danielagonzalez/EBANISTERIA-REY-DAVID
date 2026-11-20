@@ -5,10 +5,10 @@ import ChatAssistant from './components/ChatAssistant.jsx';
 import { Menu, X, ArrowUpRight, Hammer, Sofa, Store, Volume2, Phone, MapPin, Instagram, Send, ClipboardList, Ruler, Wrench, CheckCircle2, MessageCircle } from 'lucide-react';
 
 const services = [
-  { icon: Hammer, title: 'Ebanistería', text: 'Diseño, fabricación e instalación de soluciones personalizadas en madera.' },
-  { icon: Sofa, title: 'Muebles a medida', text: 'Muebles funcionales y duraderos, adaptados a tu espacio y necesidades.' },
-  { icon: Store, title: 'Stands y exhibidores', text: 'Espacios para ferias y eventos que ayudan a presentar tu marca.' },
-  { icon: Volume2, title: 'Equipos de sonido', text: 'Servicios relacionados con equipos de sonido para proyectos y eventos.' }
+  { photo: 'servicio.ebanisteria.jpeg', icon: Hammer, title: 'Ebanistería', text: 'Diseño, fabricación e instalación de soluciones personalizadas en madera.' },
+  { photo: 'Servicio.muebles.jpeg', icon: Sofa, title: 'Muebles a medida', text: 'Muebles funcionales y duraderos, adaptados a tu espacio y necesidades.' },
+  { photo: 'Servicio.stand.jpeg', icon: Store, title: 'Stands y exhibidores', text: 'Espacios para ferias y eventos que ayudan a presentar tu marca.' },
+  { photo: 'Servicio.sonido.jpeg', icon: Volume2, title: 'Equipos de sonido', text: 'Servicios relacionados con equipos de sonido para proyectos y eventos.' }
 ];
 
 const instagramUrl = 'https://www.instagram.com/serviciosreydavid_ebanisteria/';
@@ -22,10 +22,11 @@ const processSteps = [
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [logoLoaded, setLogoLoaded] = useState(false);
   const links = [['Inicio', '#inicio'], ['Nosotros', '#nosotros'], ['Servicios', '#servicios'], ['Proyectos', '#proyectos'], ['Contacto', '#contacto']];
   return <header className="site-header">
     <a className="brand" href="#inicio" aria-label="Ebanistería Rey David, inicio">
-      <span className="brand-mark">RD</span><span className="brand-name">REY DAVID<small>EBANISTERÍA & MULTISERVICIOS</small></span>
+      <img className="brand-logo" src={`${import.meta.env.BASE_URL}recurso/logoR.png`} alt="" onLoad={() => setLogoLoaded(true)} onError={() => setLogoLoaded(false)} style={{ display: logoLoaded ? undefined : 'none' }} />{!logoLoaded && <span className="brand-mark">RD</span>}<span className="brand-name">REY DAVID<small>EBANISTERÍA & MULTISERVICIOS</small></span>
     </a>
     <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'} aria-expanded={menuOpen} aria-controls="main-navigation">{menuOpen ? <X /> : <Menu />}</button>
     <nav id="main-navigation" aria-label="Navegación principal" className={menuOpen ? 'navigation navigation-open' : 'navigation'}>
@@ -39,6 +40,7 @@ function App() {
   const [sent, setSent] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [whatsappUrl, setWhatsappUrl] = useState('');
+  const [videoDisponible, setVideoDisponible] = useState(true);
 
 async function handleSubmit(event) {
   event.preventDefault();
@@ -99,7 +101,8 @@ async function handleSubmit(event) {
           <p className="hero-description">Creamos soluciones en madera, muebles personalizados y espacios para eventos, con atención a los detalles y a lo que realmente necesitas.</p>
           <div className="hero-actions"><a className="button button-light" href="#servicios">Conoce nuestros servicios <ArrowUpRight size={17} /></a><a className="underlined-link" href="#contacto">Hablemos de tu proyecto</a></div>
         </div>
-        <div className="hero-art hero-photo" role="img" aria-label="Fotografía provisional de un espacio interior con mobiliario de madera">
+        <div className="hero-art hero-photo" role="img" aria-label="Trabajos de Ebanistería Rey David">
+          {videoDisponible && <video className="hero-video" autoPlay muted playsInline loop preload="metadata" onError={() => setVideoDisponible(false)}><source src={`${import.meta.env.BASE_URL}recurso/VideoPrincipal.mp4`} type="video/mp4" /></video>}
           <div className="wood-caption">DISEÑAMOS<br /><strong>CONTIGO</strong></div>
           <span className="hero-index">PANAMÁ · HECHO A MEDIDA</span>
         </div>
@@ -112,7 +115,7 @@ async function handleSubmit(event) {
 
       <section className="services section" id="servicios">
         <div className="section-heading"><div><p className="eyebrow eyebrow-dark">LO QUE HACEMOS</p><h2>Soluciones pensadas <em>para ti.</em></h2></div><p>Cuéntanos qué tienes en mente. Te ayudamos a convertir tu idea en un proyecto.</p></div>
-        <div className="service-grid">{services.map(({ icon: Icon, title, text }, index) => <article className={`service-card service-card-${index + 1}`} key={title}><span className="service-index">0{index + 1}</span><Icon size={30} strokeWidth={1.5} aria-hidden="true" /><h3>{title}</h3><p>{text}</p><a href="#contacto">Consultar servicio <ArrowUpRight size={15} /></a></article>)}</div>
+        <div className="service-grid">{services.map(({ photo, icon: Icon, title, text }, index) => <article className={`service-card service-card-${index + 1}`} style={{ backgroundImage: `url("${import.meta.env.BASE_URL}recurso/${photo}"), url("${['https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=900&q=80','https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=80','https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=900&q=80','https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=900&q=80'][index]")` }} key={title}><span className="service-index">0{index + 1}</span><Icon size={30} strokeWidth={1.5} aria-hidden="true" /><h3>{title}</h3><p>{text}</p><a href="#contacto">Consultar servicio <ArrowUpRight size={15} /></a></article>)}</div>
       </section>
 
       <ProjectGallery />
