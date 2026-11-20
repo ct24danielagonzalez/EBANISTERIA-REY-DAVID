@@ -1,6 +1,7 @@
 
 import { useState } from 'react';
 import { crearProyecto } from '../services/adminProjects.js';
+import { subirImagenProyecto } from '../services/projectImages.js';
 
 export default function ProjectForm() {
   const [proyecto, setProyecto] = useState({
@@ -10,6 +11,7 @@ export default function ProjectForm() {
     imagen: ''
   });
 
+  const [archivo, setArchivo] = useState(null);
   const [guardando, setGuardando] = useState(false);
   const [mensaje, setMensaje] = useState('');
   const [error, setError] = useState('');
@@ -30,9 +32,12 @@ export default function ProjectForm() {
     setError('');
 
     try {
-      await crearProyecto(proyecto);
+      const imagen = archivo ? await subirImagenProyecto(archivo) : proyecto.imagen;
+      await crearProyecto({ ...proyecto, imagen });
 
       setMensaje('Proyecto guardado correctamente.');
+      setArchivo(null);
+      event.currentTarget.reset();
       window.dispatchEvent(new Event('project-updated'));
 
       setProyecto({
@@ -43,7 +48,7 @@ export default function ProjectForm() {
       });
     } catch (err) {
       console.error(err);
-      setError('No se pudo guardar el proyecto. Revisa Firebase.');
+      setError(err.message || 'No se pudo guardar el proyecto. Revisa Firebase.');
     } finally {
       setGuardando(false);
     }
@@ -92,10 +97,16 @@ export default function ProjectForm() {
         </label>
 
         <label>
-          URL de imagen (opcional)
+          Imagen desde tu computador (opcional)
+          <input type="file" accept="image/jpeg,image/png,image/webp,image/avif" onChange={(event) => setArchivo(event.target.files?.[0] || null)} />
+        </label>
+
+        <label>
+          URL de imagen (opcional; método anterior)
           <input
             name="imagen"
             type="url"
+            disabled={Boolean(archivo)}
             value={proyecto.imagen}
             onChange={actualizar}
             placeholder="https://ejemplo.com/imagen.jpg"
