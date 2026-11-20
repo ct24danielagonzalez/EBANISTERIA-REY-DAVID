@@ -26,7 +26,7 @@ function Header() {
   const links = [['Inicio', '#inicio'], ['Nosotros', '#nosotros'], ['Servicios', '#servicios'], ['Proyectos', '#proyectos'], ['Contacto', '#contacto']];
   return <header className="site-header">
     <a className="brand" href="#inicio" aria-label="Ebanistería Rey David, inicio">
-      <img className="brand-logo" src={`${import.meta.env.BASE_URL}recurso/logoR.png`} alt="" onLoad={() => setLogoLoaded(true)} onError={() => setLogoLoaded(false)} style={{ display: logoLoaded ? undefined : 'none' }} />{!logoLoaded && <span className="brand-mark">RD</span>}<span className="brand-name">REY DAVID<small>EBANISTERÍA & MULTISERVICIOS</small></span>
+      <img className="brand-logo" src={`${import.meta.env.BASE_URL}logoR.png`} alt="" onLoad={() => setLogoLoaded(true)} onError={() => setLogoLoaded(false)} style={{ display: logoLoaded ? undefined : 'none' }} />{!logoLoaded && <span className="brand-mark">RD</span>}<span className="brand-name">REY DAVID<small>EBANISTERÍA & MULTISERVICIOS</small></span>
     </a>
     <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'} aria-expanded={menuOpen} aria-controls="main-navigation">{menuOpen ? <X /> : <Menu />}</button>
     <nav id="main-navigation" aria-label="Navegación principal" className={menuOpen ? 'navigation navigation-open' : 'navigation'}>
@@ -102,7 +102,7 @@ async function handleSubmit(event) {
           <div className="hero-actions"><a className="button button-light" href="#servicios">Conoce nuestros servicios <ArrowUpRight size={17} /></a><a className="underlined-link" href="#contacto">Hablemos de tu proyecto</a></div>
         </div>
         <div className="hero-art hero-photo" role="img" aria-label="Trabajos de Ebanistería Rey David">
-          {videoDisponible && <video className="hero-video" autoPlay muted playsInline loop preload="metadata" onError={() => setVideoDisponible(false)}><source src={`${import.meta.env.BASE_URL}recurso/VideoPrincipal.mp4`} type="video/mp4" /></video>}
+          {videoDisponible && <video className="hero-video" autoPlay muted playsInline loop preload="metadata" onError={() => setVideoDisponible(false)}><source src={`${import.meta.env.BASE_URL}VideoPrincipal.mp4`} type="video/mp4" /></video>}
           <div className="wood-caption">DISEÑAMOS<br /><strong>CONTIGO</strong></div>
           <span className="hero-index">PANAMÁ · HECHO A MEDIDA</span>
         </div>
@@ -115,7 +115,7 @@ async function handleSubmit(event) {
 
       <section className="services section" id="servicios">
         <div className="section-heading"><div><p className="eyebrow eyebrow-dark">LO QUE HACEMOS</p><h2>Soluciones pensadas <em>para ti.</em></h2></div><p>Cuéntanos qué tienes en mente. Te ayudamos a convertir tu idea en un proyecto.</p></div>
-        <div className="service-grid">{services.map(({ photo, icon: Icon, title, text }, index) => <article className={`service-card service-card-${index + 1}`} style={{ backgroundImage: `url("${import.meta.env.BASE_URL}recurso/${photo}"), url("${['https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=900&q=80','https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=80','https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=900&q=80','https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=900&q=80'][index]}")` }} key={title}><span className="service-index">0{index + 1}</span><Icon size={30} strokeWidth={1.5} aria-hidden="true" /><h3>{title}</h3><p>{text}</p><a href="#contacto">Consultar servicio <ArrowUpRight size={15} /></a></article>)}</div>
+        <div className="service-grid">{services.map(({ photo, icon: Icon, title, text }, index) => <article className={`service-card service-card-${index + 1}`} style={{ backgroundImage: `url("${import.meta.env.BASE_URL}${photo}"), url("${['https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=900&q=80','https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=900&q=80','https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=900&q=80','https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=900&q=80'][index]}")` }} key={title}><span className="service-index">0{index + 1}</span><Icon size={30} strokeWidth={1.5} aria-hidden="true" /><h3>{title}</h3><p>{text}</p><a href="#contacto">Consultar servicio <ArrowUpRight size={15} /></a></article>)}</div>
       </section>
 
       <ProjectGallery />
