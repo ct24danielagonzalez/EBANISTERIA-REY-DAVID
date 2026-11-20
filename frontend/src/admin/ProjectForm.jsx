@@ -27,6 +27,7 @@ export default function ProjectForm() {
 
   async function guardar(event) {
     event.preventDefault();
+    const form = event.currentTarget;
     setGuardando(true);
     setMensaje('');
     setError('');
@@ -37,7 +38,7 @@ export default function ProjectForm() {
 
       setMensaje('Proyecto guardado correctamente.');
       setArchivo(null);
-      event.currentTarget.reset();
+      form.reset();
       window.dispatchEvent(new Event('project-updated'));
 
       setProyecto({
