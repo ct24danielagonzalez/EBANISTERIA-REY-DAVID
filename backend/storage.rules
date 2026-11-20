@@ -1,0 +1,16 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    function esAdministrador() {
+      return request.auth != null
+        && request.auth.uid == "h1P8Wbx9ULSnJcHo2cllvN7TkC83";
+    }
+    match /proyectos/{archivo} {
+      allow read: if true;
+      allow create: if esAdministrador()
+        && request.resource.size <= 8 * 1024 * 1024
+        && request.resource.contentType.matches('image/(jpeg|png|webp|avif)');
+      allow update, delete: if esAdministrador();
+    }
+  }
+}
